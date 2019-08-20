@@ -43,9 +43,34 @@ class ErrorBoundary extends Component {
   }
 }
 
-const Profile = props => (
-  <div>{props.user.name}</div>
-);
+class Profile extends Component {
+  constructor(props) {
+    super(props);
+
+    // Errors thrown here are catchable:
+    // throw new Error('error from constructor');
+  }
+
+  componentDidMount() {
+    // Errors thrown here are catchable:
+    // throw new Error('error from componentDidMount');
+  }
+
+  handleClick = () => this.setState((state) => {
+    // Errors thrown here are catchable:
+    // throw new Error('error from setState');
+
+    return { ...state };
+  });
+
+  render() {
+    return (
+      <div onClick={this.handleClick}>
+        {this.props.user.name}
+      </div>
+    );
+  }
+};
 
 class App extends Component {
   state = {

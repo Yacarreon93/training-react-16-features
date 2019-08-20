@@ -4,11 +4,11 @@ import './App.css';
 const Comment = ({ text }) => {
   const emojied = text.replace(':)', ':smile:');
 
-  return (
-    <span>
-      {emojied}
-    </span>
-  );
+  /*
+    Components can return a simply string.
+    See the DOM and check there is no extra wrapping element around text.
+  */
+  return emojied;
 }
 
 function App() {

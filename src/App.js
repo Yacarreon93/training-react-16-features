@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import './App.css';
 
 /*
@@ -10,6 +10,19 @@ const Stuff = () => [
   <li key="3">Sugar</li>,
 ];
 
+class MoreStuff extends Component {
+  render () {
+    /*
+      The "keys" are the same as in "Stuff" but in this case they are not an issue.
+      See there is no warnings in console.
+    */
+    return [
+      <li key="1">Animals</li>,
+      <li key="2">Fruits</li>,
+    ];
+  }
+}
+
 function App() {
   return (
     <div className="App">
@@ -18,6 +31,7 @@ function App() {
         <li>Hammer</li>
         <li>Flower</li>
         <Stuff />
+        <MoreStuff />
       </ul>
     </div>
   );

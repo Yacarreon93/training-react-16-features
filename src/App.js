@@ -1,26 +1,30 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { Component } from 'react';
 import './App.css';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+const Profile = props => (
+  <div>{props.user.name}</div>
+);
+
+class App extends Component {
+  state = {
+    user: { name: 'Arturo' },
+  };
+
+  /*
+    Click on button to cause an error,
+  */
+  updateUser = () => this.setState({ user: null });
+
+  render() {
+    return (
+      <div className="App">
+        <header className="App-header">
+          <Profile user={this.state.user} />
+          <button onClick={this.updateUser}>Update</button>
+        </header>
+      </div>
+    );
+  }
 }
 
 export default App;

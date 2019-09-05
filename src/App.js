@@ -18,8 +18,14 @@ function App() {
         Note that you should still use the canonical
         React naming for known attributes.
       */
-      tabIndex="-1"
+      // tabIndex="-1"
       onClick={() => console.log('clicked')}
+      /*
+        React 16 makes possible to do this:
+        However, warnings will be thrown in console.
+      */
+      class="my-class"
+      tabindex="-1"
     >
       Hello wordl!
     </div>

@@ -33,6 +33,10 @@ function App() {
       onion="true"
       ontas="true"
       onclick={() => console.log('clicked')}
+      // Cases when React will not render the attributes:
+      wrong-attribute-1={true}
+      wrong-attribute-2={() => null}
+      wrong-attribute-3={Symbol('foo')}
     >
       Hello wordl!
     </div>

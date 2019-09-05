@@ -11,7 +11,7 @@ import './App.css';
 function App() {
   return (
     <div
-      // Open the browser inspector to see the attrs.
+      // Open the browser inspector to see the attributes.
       my-attribute-1="foo"
       my-attribute-2="var"
       /*
@@ -19,13 +19,20 @@ function App() {
         React naming for known attributes.
       */
       // tabIndex="-1"
-      onClick={() => console.log('clicked')}
+      // onClick={() => console.log('clicked')}
       /*
         React 16 makes possible to do this:
         However, warnings will be thrown in console.
       */
       class="my-class"
       tabindex="-1"
+      /*
+        As an exception, the attributes starting with "on" are ignored
+        because sthis could become a potential security hole (see warnings in console).
+      */
+      onion="true"
+      ontas="true"
+      onclick={() => console.log('clicked')}
     >
       Hello wordl!
     </div>

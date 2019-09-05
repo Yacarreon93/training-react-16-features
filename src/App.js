@@ -14,6 +14,12 @@ function App() {
       // Open the browser inspector to see the attrs.
       my-attribute-1="foo"
       my-attribute-2="var"
+      /*
+        Note that you should still use the canonical
+        React naming for known attributes.
+      */
+      tabIndex="-1"
+      onClick={() => console.log('clicked')}
     >
       Hello wordl!
     </div>

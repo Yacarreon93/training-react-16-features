@@ -3,6 +3,8 @@ import './App.css';
 
 // See doc: https://reactjs.org/docs/refs-and-the-dom.html
 
+const MyFunctionComponent = () => <input type="text" />;
+
 class CustomTextInput extends React.Component {
   inputRef = React.createRef();
 
@@ -24,19 +26,17 @@ class App extends Component {
       Refs provide a way to access DOM nodes or React elements created in the render method.
     */
     this.inputRef = React.createRef();
-    console.log('constructor', this.inputRef.current); // Ref is not accessible at this point.
   }
   
   componentDidMount() {
-    console.log('componentDidMount', this.inputRef.current); // Once the component did mount the Ref is now accessible.
-    this.inputRef.current.focusTextInput();
+    console.log('inputRef', this.inputRef.current); // Warning will be thrown: Function components cannot be given refs.
   }
 
   render() {
     return (
       <div className="App">
-        {/* It's also possible to add a Ref to a Class Component */}
-        <CustomTextInput ref={this.inputRef} />
+        {/* WARNING! Don't Ref a Function Component */}
+        <MyFunctionComponent ref={this.inputRef} />
       </div>
     );
   }

@@ -1,11 +1,17 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import './App.css';
 
-const Fruits = () => [
-  <li key="1">Apple</li>,
-  <li key="2">Orange</li>,
-  <li key="3">Watermelon</li>,
-];
+/*
+  It is possible to use Fragment to wrap elements and return them like an array.
+  Element keys are not required this way.
+*/
+const Fruits = () => (
+  <Fragment>
+    <li>Apple</li>
+    <li>Orange</li>
+    <li>Watermelon</li>
+  </Fragment>
+);
 
 function App() {
   return (

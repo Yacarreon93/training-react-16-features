@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import './App.css';
 
 /*
@@ -17,13 +17,32 @@ const Fruits = () => (
   </>
 );
 
+/*
+  Fragments declared with the explicit syntax may have keys.
+  A use case for this is mapping a collection to an array of fragments.
+  "key" is the only attribute that can be passed to Fragment.
+*/
+const Glossary = props => (
+  <dl>
+    {props.items.map(item => (
+      <Fragment key={item.id}>
+        <dt>{item.term}</dt>
+        <dd>{item.description}</dd>
+      </Fragment>
+    ))}
+  </dl>
+);
+
 function App() {
   return (
     <div className="App">
       <ul>
         <li>Peach</li>
         <li>Banana</li>
-        <Fruits />
+        <Glossary items={[
+          { id: 1, term: 'Google', description: 'This is the description of Google.'},
+          { id: 1, term: 'Windows', description: 'This is the description of Windows.' },
+        ]} />
       </ul>
     </div>
   );

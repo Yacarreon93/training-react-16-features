@@ -1,16 +1,20 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import './App.css';
 
 /*
-  It is possible to use Fragment to wrap elements and return them like an array.
+  It's possible to use Fragment to wrap elements and return them like an array.
   Element keys are not required this way.
+  
+  TIP:
+  React recognizes "<></>" as Fragment.
+  You can use "<></>" the same way you’d use any other element except that it doesn’t support keys or attributes.
 */
 const Fruits = () => (
-  <Fragment>
+  <>
     <li>Apple</li>
     <li>Orange</li>
     <li>Watermelon</li>
-  </Fragment>
+  </>
 );
 
 function App() {

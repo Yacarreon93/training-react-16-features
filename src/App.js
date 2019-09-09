@@ -4,25 +4,29 @@ import './App.css';
 // https://reactjs.org/docs/forwarding-refs.html#forwarding-refs-to-dom-components
 // https://reactjs.org/docs/react-api.html#reactforwardref
 
-// NOTE: THIS CODE WILL THROW ERRORS WHEN CLICKING THE BUTTON!
+// CLICKING THE BUTTON NOW WORKS!
 
 function logProps(WrappedComponent) {
-  class LogProps extends React.Component {
+  class LogProps extends Component {
     componentDidUpdate(prevProps) {
       console.log('old props:', prevProps);
       console.log('new props:', this.props);
     }
 
     render() {
-      /*
-        Refs will not get passed through. That’s because ref is not a prop.
-        Like key, it’s handled differently by React.
-      */
-      return <WrappedComponent {...this.props} />;
+      const { forwardedRef, ...rest } = this.props;
+
+      // Assign the custom prop "forwardedRef" as a ref.
+      return <WrappedComponent ref={forwardedRef} {...rest} />;
     }
   }
 
-  return LogProps;
+  // Note the second param "ref" provided by React.forwardRef.
+  // We can pass it along to LogProps as a regular prop, e.g. "forwardedRef"
+  // And it can then be attached to the WrappedComponent.
+  return React.forwardRef((props, ref) => {
+    return <LogProps {...props} forwardedRef={ref} />;
+  });
 }
 
 class TextInput extends Component {

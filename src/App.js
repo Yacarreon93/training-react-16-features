@@ -19,7 +19,9 @@ class FetchJSON extends Component {
     Deriving state leads to verbose code and makes your components difficult to think about.
     Make sure you’re familiar with simpler alternatives:
     https://reactjs.org/blog/2018/06/07/you-probably-dont-need-derived-state.html
-    */
+
+    WARNING: The use of getDerivedStateFromProps may cause some issues.
+  */
    static getDerivedStateFromProps(props, state) {
      console.log('getDerivedStateFromProps', props);
      
@@ -34,15 +36,34 @@ class FetchJSON extends Component {
     return null;
   }
 
+  /*
+    As an example:
+    Calling this method again while the first call is still fething may cause a concurrency error.
+    
+    HOW TO: Try to click the button as soon as the page loads (you'll see a flashing).
+  */
   fetchAndUpdate = async () => {
-    const response = await fetch(this.state.url);
+    /*
+      To fix it:
+
+      1. Get the url from the state (it will works as the last url requested).
+    */
+    const { url } = this.state;
+    const response = await fetch(url);
     const result = await response.json();
 
-    this.setState({
-      data: result,
-      isLoading: false,
-    });
-  };
+    this.setState((state) => {
+      //  2. Update the state only in case the url is equals to the last one requested.
+      if (state.url === url) {
+        return {
+          data: result,
+          isLoading: false,
+        };
+      }
+
+      return null;
+     });
+  }
 
   componentDidMount() {
     this.fetchAndUpdate();

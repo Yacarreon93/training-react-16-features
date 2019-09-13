@@ -2,7 +2,7 @@ import React from 'react';
 import './App.css';
 
 /*
-  Doc: https://es.reactjs.org/blog/2017/09/08/dom-attributes-in-react-16.html
+  Doc: https://reactjs.org/blog/2017/09/08/dom-attributes-in-react-16.html
 
   In the past React used to ignore unknown DOM attributes. If you wrote JSX with
   an attribute that React doesn’t recognize, React would just skip it.
@@ -36,7 +36,7 @@ function App() {
       tabindex="-1"
       /*
         As an exception, the attributes starting with "on" are ignored
-        because sthis could become a potential security hole (see warnings in console).
+        because this could become a potential security hole (see warnings in console).
       */
       onion="true"
       ontas="true"

@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import './App.css';
 
+// Doc: https://reactjs.org/docs/react-component.html#getsnapshotbeforeupdate
+
 const generateRandomString = () => Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
 
 class Chat extends Component {

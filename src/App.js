@@ -1,6 +1,8 @@
 import React, { Fragment } from 'react';
 import './App.css';
 
+// Doc: https://reactjs.org/blog/2017/11/28/react-v16.2.0-fragment-support.html
+
 /*
   It's possible to use Fragment to wrap elements and return them like an array.
   Element keys are not required this way.

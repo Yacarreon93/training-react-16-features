@@ -11,6 +11,35 @@ class Chat extends Component {
     this.wrapperRef.current.scrollTop = this.wrapperRef.current.scrollHeight;
   }
 
+  
+  isScrollAtTheBottom = wrapper => wrapper.scrollTop + wrapper.offsetHeight >= wrapper.scrollHeight;
+
+  /*
+    getSnapshotBeforeUpdate() is invoked right before the most recently rendered output
+    is committed to e.g. the DOM. It enables your component to capture some information
+    from the DOM (e.g. scroll position) before it is potentially changed. Any value
+    returned by this lifecycle will be passed as a parameter to componentDidUpdate().
+  */
+  getSnapshotBeforeUpdate(prevProps, prevState) {
+    const wrapper = this.wrapperRef.current;
+
+    // Send to "componentDidUpdate" if should scroll down.
+    return this.isScrollAtTheBottom(wrapper);
+  }
+
+  /*
+    It is important to read the "scrollHeight" (see: isScrollAtTheBottom()) property in
+    getSnapshotBeforeUpdate() because there may be delays between “render” phase lifecycles
+    (like render) and “commit” phase lifecycles (like getSnapshotBeforeUpdate and componentDidUpdate).
+  */
+
+  componentDidUpdate(prevProps, prevState, snapshot) {
+    // In the case of the snapshot is sent, then scroll down.
+    if (snapshot) {
+      this.wrapperRef.current.scrollTop = this.wrapperRef.current.scrollHeight;
+    }
+  }
+
   render() {
     return (
       <div

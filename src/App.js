@@ -23,6 +23,8 @@ const ThemeContext = React.createContext({
   toggleTheme: () => {},
 });
 
+const UserContext = React.createContext({ name: 'Joe' });
+
 const Button = (props) => (
   <ThemeContext.Consumer>
     {({ theme }) => {
@@ -73,8 +75,24 @@ const Toolbar = () => (
         <Button onCLick={toggleTheme}>Toggle</Button>
       )}
     </ThemeContext.Consumer>
+    <ThemeContext.Consumer>
+      {({ theme }) => (
+        <UserContext.Consumer>
+          {user => {
+            const style = {
+              background: theme.background,
+              color: theme.foreground,
+            };
+
+            return <div style={style}>{user.name}</div>;
+          }}
+        </UserContext.Consumer>
+      )}
+    </ThemeContext.Consumer>
   </div>
 );
+
+const user = { name: 'Jane' };
 
 class App extends Component {
   constructor(props) {
@@ -107,12 +125,11 @@ class App extends Component {
           The way changes are determined can cause some issues when passing objects as value,
           see doc: https://reactjs.org/docs/context.html#caveats
         */}
-        <ThemeContext.Provider
-          value={this.state} // CORRECT!
-          // value={{ theme: this.state.dark, toggleTheme: this.toggleTheme }} // WRONG!
-        >
-          <Toolbar />
-        </ThemeContext.Provider>
+        <UserContext.Provider value={user}>
+          <ThemeContext.Provider value={this.state}>
+            <Toolbar />
+          </ThemeContext.Provider>
+        </UserContext.Provider>
       </div>
     );
   }

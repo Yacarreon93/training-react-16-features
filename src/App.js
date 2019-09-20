@@ -16,11 +16,30 @@ const Button = (props) => (
         theme === 'dark'
           ? { background: '#666', color: '#fff' }
           : { background: '#eee ', color: '#222' };
-      
-        return <button style={style}>{props.children}</button>;
+
+      return <button style={style}>{props.children}</button>;
     }}
   </ThemeContext.Consumer>
 );
+
+class ClassButton extends Component {
+  /*
+    Assign a contextType to read the current theme context.
+    React will find the closest theme Provider above and use its value.
+    
+    In this example, the context is "dark".
+  */
+  static contextType = ThemeContext;
+
+  render () {
+    const style =
+        this.context === 'dark'
+          ? { background: '#666', color: '#fff' }
+          : { background: '#eee ', color: '#222' };
+
+    return <button style={style}>{this.props.children}</button>;
+  }
+}
 
 /*
   A component in the middle doesn't have to
@@ -28,8 +47,8 @@ const Button = (props) => (
 */
 const Toolbar = () => (
   <div>
-    <Button>Edit</Button>
-    <Button>Save</Button>
+    <ClassButton>Edit</ClassButton>
+    <ClassButton>Save</ClassButton>
   </div>
 );
 

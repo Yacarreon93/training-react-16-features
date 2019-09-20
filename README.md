@@ -1,4 +1,4 @@
-### Lessons
+# Lessons
 
 1.  [Error handling using error boundaries.](https://reactjs.org/docs/react-component.html#componentdidcatch)
 2.  [Render multiple elements without a wrapping element in a component.](https://reactjs.org/docs/rendering-elements.html)
@@ -11,9 +11,9 @@
 9.  [Forward a dom reference to another component using "forwardref".](https://reactjs.org/docs/forwarding-refs.html#forwarding-refs-to-dom-components)
 10. [Update state based on props using the lifecycle hook "getderivedstatefromprops".](https://reactjs.org/docs/react-component.html#static-getderivedstatefromprops)
 11. [Capture values using the lifecycle hook "getSnapshotBeforeUpdate".](https://reactjs.org/docs/react-component.html#getsnapshotbeforeupdate)
-12. [Pass data through a component tree using context providers and consumers](https://reactjs.org/docs/context.html)
+12. [Pass data through a component tree using context providers and consumers.](https://reactjs.org/docs/context.html)
 
-### Run App
+# Run App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 

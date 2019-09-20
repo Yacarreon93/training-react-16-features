@@ -3,21 +3,42 @@ import './App.css';
 
 // Doc: https://reactjs.org/docs/context.html
 
+const themes = {
+  dark: {
+    foreground: '#fff',
+    background: '#666',
+  },
+  light: {
+    foreground: '#222',
+    background: '#eee',
+  },
+};
+
 /*
   Context provides a way to pass data through the component
   tree without having to pass props down manually at every level.
 */
-const ThemeContext = React.createContext('light');
+const ThemeContext = React.createContext({
+  theme: themes.dark,
+  toggleTheme: () => {},
+});
 
 const Button = (props) => (
   <ThemeContext.Consumer>
-    {(theme) => {
-      const style =
-        theme === 'dark'
-          ? { background: '#666', color: '#fff' }
-          : { background: '#eee ', color: '#222' };
+    {({ theme }) => {
+      const style = {
+        background: theme.background,
+        color: theme.foreground,
+      };
 
-      return <button style={style}>{props.children}</button>;
+      return (
+        <button
+          style={style}
+          onClick={props.onCLick}
+        >
+          {props.children}
+        </button>
+      );
     }}
   </ThemeContext.Consumer>
 );
@@ -26,8 +47,6 @@ class ClassButton extends Component {
   /*
     Assign a contextType to read the current theme context.
     React will find the closest theme Provider above and use its value.
-    
-    In this example, the context is "dark".
   */
   static contextType = ThemeContext;
 
@@ -47,12 +66,32 @@ class ClassButton extends Component {
 */
 const Toolbar = () => (
   <div>
-    <ClassButton>Edit</ClassButton>
-    <ClassButton>Save</ClassButton>
+    <Button>Edit</Button>
+    <Button>Save</Button>
+    <ThemeContext.Consumer>
+      {({ toggleTheme }) => (
+        <Button onCLick={toggleTheme}>Toggle</Button>
+      )}
+    </ThemeContext.Consumer>
   </div>
 );
 
 class App extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      theme: themes.dark,
+      toggleTheme: this.toggleTheme, 
+    };
+  }
+
+  toggleTheme = () => {
+    this.setState(state => ({
+      theme: state.theme === themes.dark ? themes.light : themes.dark,
+    }));
+  };
+
   render() {
     return (
       <div className="App">
@@ -61,9 +100,17 @@ class App extends Component {
           Any component can read it, no matter how deep it is.
           Toolbar doesn't have to pass the theme down explicitly anymore. 
           
-          In this example, we're passing 'dark' as the current value.
+          Because context uses reference identity to determine when to re-render,
+          there are some gotchas that could trigger unintentional renders in
+          consumers when a provider’s parent re-renders.
+
+          The way changes are determined can cause some issues when passing objects as value,
+          see doc: https://reactjs.org/docs/context.html#caveats
         */}
-        <ThemeContext.Provider value='dark'>
+        <ThemeContext.Provider
+          value={this.state} // CORRECT!
+          // value={{ theme: this.state.dark, toggleTheme: this.toggleTheme }} // WRONG!
+        >
           <Toolbar />
         </ThemeContext.Provider>
       </div>
